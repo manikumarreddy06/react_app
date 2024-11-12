@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; // eslint-disable-line no-unused-vars
 import { Send, Phone, Mail, MessageSquare } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -17,37 +18,28 @@ const ContactForm = () => {
     message: '',
   });
 
-  const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzoqF_m_rfHVs9Ird2mGx0BaoheuCtbZ1CCnQQ9_KBUXLkC6Mb5hCzPBHb-0itZLWR2/exec';
+  const SERVICE_ID = 'service_9q0rfss';
+  const TEMPLATE_ID = 'template_mrsgjuk';
+  const USER_ID = 'QcGnC8EARYYYVFY6U';
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(GOOGLE_SHEETS_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+      await emailjs.send(SERVICE_ID, TEMPLATE_ID, formData, USER_ID);
+      setSubmitStatus({
+        show: true,
+        isError: false,
+        message: "Request submitted successfully! We'll contact you soon.",
       });
-
-      if (response.ok) {
-    setSubmitStatus({
-      show: true,
-      isError: false,
-          message: "Request submitted successfully! We'll contact you soon.",
-    });
-    setFormData({
-      companyName: '',
-      contactPerson: '',
-      email: '',
-      phone: '',
-      skills: '',
-      requirements: '',
-    });
-      } else {
-        throw new Error('Failed to submit');
-      }
+      setFormData({
+        companyName: '',
+        contactPerson: '',
+        email: '',
+        phone: '',
+        skills: '',
+        requirements: '',
+      });
     } catch (error) {
       setSubmitStatus({
         show: true,
@@ -66,92 +58,90 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl shadow-xl p-8 text-white">
-      <h3 className="text-3xl font-bold mb-6">Let's Connect</h3>
+    <div className="max-w-3xl mx-auto bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg shadow-lg p-8 text-white">
+      <h3 className="text-3xl font-semibold mb-4 text-center">Let's Connect</h3>
       
       {submitStatus.show && (
-        <div className={`mb-6 p-4 rounded-md ${
-          submitStatus.isError ? 'bg-red-400' : 'bg-green-400'
-        } text-white`}>
+        <div className={`mb-6 p-4 rounded-md ${submitStatus.isError ? 'bg-red-500' : 'bg-green-500'} text-white`}>
           {submitStatus.message}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-2">Company Name</label>
+            <label className="block text-sm font-medium mb-1">Company Name</label>
             <input
               type="text"
               name="companyName"
               value={formData.companyName}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 rounded-md bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
+              className="w-full px-4 py-2 rounded-md bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
               placeholder="Your company name"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Contact Person</label>
+            <label className="block text-sm font-medium mb-1">Contact Person</label>
             <input
               type="text"
               name="contactPerson"
               value={formData.contactPerson}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 rounded-md bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
+              className="w-full px-4 py-2 rounded-md bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
               placeholder="Your name"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-2">Email</label>
+            <label className="block text-sm font-medium mb-1">Email</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 rounded-md bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
+              className="w-full px-4 py-2 rounded-md bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
               placeholder="your@email.com"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Phone</label>
+            <label className="block text-sm font-medium mb-1">Phone</label>
             <input
               type="tel"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 rounded-md bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
+              className="w-full px-4 py-2 rounded-md bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
               placeholder="Your phone number"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Required Skills</label>
+          <label className="block text-sm font-medium mb-1">Required Skills</label>
           <input
             type="text"
             name="skills"
             value={formData.skills}
             onChange={handleChange}
             placeholder="e.g., React, Node.js, Python"
-            className="w-full px-4 py-2 rounded-md bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
+            className="w-full px-4 py-2 rounded-md bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Project Requirements</label>
+          <label className="block text-sm font-medium mb-1">Project Requirements</label>
           <textarea
             name="requirements"
             value={formData.requirements}
             onChange={handleChange}
             rows={4}
-            className="w-full px-4 py-2 rounded-md bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
+            className="w-full px-4 py-2 rounded-md bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
             placeholder="Tell us about your project requirements"
           ></textarea>
         </div>
@@ -165,28 +155,17 @@ const ContactForm = () => {
         </button>
       </form>
 
-      <div className="mt-8 pt-8 border-t border-white/20">
+      <div className="mt-8 pt-8 border-t border-white/30">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <a
-            href="tel:+1234567890"
-            className="flex items-center justify-center space-x-2 px-4 py-2 rounded-md bg-white/10 hover:bg-white/20 transition"
-          >
+          <a href="tel:+8299640321" className="flex items-center justify-center space-x-2 px-4 py-2 rounded-md bg-white/20 hover:bg-white/30 transition">
             <Phone className="h-5 w-5" />
-            <span>+1 (234) 567-890</span>
+            <span>+(91)8299640321</span>
           </a>
-          <a
-            href="mailto:contact@alpisindia.com"
-            className="flex items-center justify-center space-x-2 px-4 py-2 rounded-md bg-white/10 hover:bg-white/20 transition"
-          >
+          <a href="mailto:contact@alpisindia.com" className="flex items-center justify-center space-x-2 px-4 py-2 rounded-md bg-white/20 hover:bg-white/30 transition">
             <Mail className="h-5 w-5" />
             <span>contact@alpisindia.com</span>
           </a>
-          <a
-            href="https://wa.me/1234567890"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center space-x-2 px-4 py-2 rounded-md bg-white/10 hover:bg-white/20 transition"
-          >
+          <a href="https://wa.me/8299640321" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center space-x-2 px-4 py-2 rounded-md bg-white/20 hover:bg-white/30 transition">
             <MessageSquare className="h-5 w-5" />
             <span>WhatsApp Chat</span>
           </a>
