@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Menu, X, Brain } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import logoImage from '../assets/images/Alpis_India_logo.png';
+import { useState } from 'react';
 
 
 const Navbar = () => {

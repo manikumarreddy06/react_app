@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import { Rocket, Shield, Clock, Award, Target, HandshakeIcon } from 'lucide-react';
 
-const WhyUs = () => {
+const WhyUs: React.FC = () => {
   const reasons = [
     {
       icon: <Rocket className="h-8 w-8" />,

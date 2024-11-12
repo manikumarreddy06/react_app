@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Users, Code, Briefcase, HeartHandshake } from 'lucide-react';
 
 const Services = () => {
