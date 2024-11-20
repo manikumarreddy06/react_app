@@ -1,3 +1,4 @@
+
 import { Target, Users, Heart } from 'lucide-react';
 
 const About = () => {
