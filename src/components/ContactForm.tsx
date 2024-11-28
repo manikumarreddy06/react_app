@@ -19,14 +19,9 @@ const ContactForm = () => {
     message: '',
   });
 
-  const SERVICE_ID = 'service_9q0rfss';
-  const TEMPLATE_ID = 'template_6drhbjm';
-  const USER_ID = 'QcGnC8EARYYYVFY6U';
-
-  // Initialize EmailJS
-  useEffect(() => {
-    emailjs.init(USER_ID);
-  }, []);
+  const SERVICE_ID = 'service_a2pl1tc';
+  const TEMPLATE_ID = 'template_eabz0en';
+  const USER_ID = 'Kya8mygl3lYGskv1m';
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
