@@ -48,7 +48,7 @@ const App = () => {
               <h3 className="text-lg font-semibold mb-4">Contact</h3>
               <ul className="space-y-2 text-gray-400">
                 <li>hr@alpisindia.com</li>
-                <li>+1 (234) 567-890</li>
+                <li>+(91)8299640321</li>
               </ul>
             </div>
           </div>

@@ -1,10 +1,11 @@
-import React, { useState } from 'react'; // eslint-disable-line no-unused-vars
+import React, { useState, useEffect } from 'react';
 import { Send, Phone, Mail, MessageSquare } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
     companyName: '',
+    companyWebsite: '',
     contactPerson: '',
     email: '',
     phone: '',
@@ -19,33 +20,70 @@ const ContactForm = () => {
   });
 
   const SERVICE_ID = 'service_9q0rfss';
-  const TEMPLATE_ID = 'template_mrsgjuk';
+  const TEMPLATE_ID = 'template_6drhbjm';
   const USER_ID = 'QcGnC8EARYYYVFY6U';
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init(USER_ID);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      await emailjs.send(SERVICE_ID, TEMPLATE_ID, formData, USER_ID);
+      const templateParams = {
+        timestamp: new Date().toLocaleString(),
+        companyName: formData.companyName,
+        companyWebsite: formData.companyWebsite,
+        contactPerson: formData.contactPerson,
+        email: formData.email,
+        phone: formData.phone,
+        skills: formData.skills,
+        requirements: formData.requirements,
+      };
+
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        templateParams,
+        USER_ID
+      );
+
       setSubmitStatus({
         show: true,
         isError: false,
         message: "Request submitted successfully! We'll contact you soon.",
       });
+
+      // Clear form after successful submission
       setFormData({
         companyName: '',
+        companyWebsite: '',
         contactPerson: '',
         email: '',
         phone: '',
         skills: '',
         requirements: '',
       });
+
+      // Hide success message after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus(prev => ({ ...prev, show: false }));
+      }, 5000);
+
     } catch (error) {
+      console.error('EmailJS Error:', error);
       setSubmitStatus({
         show: true,
         isError: true,
         message: 'There was an error submitting your request. Please try again later.',
       });
+
+      // Hide error message after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus(prev => ({ ...prev, show: false }));
+      }, 5000);
     }
   };
 
@@ -62,7 +100,11 @@ const ContactForm = () => {
       <h3 className="text-3xl font-semibold mb-4 text-center">Let's Connect</h3>
       
       {submitStatus.show && (
-        <div className={`mb-6 p-4 rounded-md ${submitStatus.isError ? 'bg-red-500' : 'bg-green-500'} text-white`}>
+        <div 
+          className={`mb-6 p-4 rounded-md ${
+            submitStatus.isError ? 'bg-red-500' : 'bg-green-500'
+          } text-white transition-all duration-300`}
+        >
           {submitStatus.message}
         </div>
       )}
@@ -123,6 +165,19 @@ const ContactForm = () => {
         </div>
 
         <div>
+          <label className="block text-sm font-medium mb-1">Company Website</label>
+          <input
+            type="text"
+            name="companyWebsite"
+            value={formData.companyWebsite}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 rounded-md bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+            placeholder="https://company.com"
+          />
+        </div>
+
+        <div>
           <label className="block text-sm font-medium mb-1">Required Skills</label>
           <input
             type="text"
@@ -161,9 +216,9 @@ const ContactForm = () => {
             <Phone className="h-5 w-5" />
             <span>+(91)8299640321</span>
           </a>
-          <a href="mailto:contact@alpisindia.com" className="flex items-center justify-center space-x-2 px-4 py-2 rounded-md bg-white/20 hover:bg-white/30 transition">
+          <a href="mailto:hr@alpisindia.com" className="flex items-center justify-center space-x-2 px-4 py-2 rounded-md bg-white/20 hover:bg-white/30 transition">
             <Mail className="h-5 w-5" />
-            <span>contact@alpisindia.com</span>
+            <span>hr@alpisindia.com</span>
           </a>
           <a href="https://wa.me/8299640321" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center space-x-2 px-4 py-2 rounded-md bg-white/20 hover:bg-white/30 transition">
             <MessageSquare className="h-5 w-5" />
