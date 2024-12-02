@@ -31,7 +31,7 @@ const App = () => {
             <div>
               <h3 className="text-lg font-semibold mb-4">Alpis India</h3>
               <p className="text-gray-400">
-                Connecting exceptional tech talent with innovative companies.
+              Here One Ultimate Meets Another.
               </p>
             </div>
             <div>

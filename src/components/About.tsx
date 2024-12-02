@@ -1,4 +1,3 @@
-
 import { Target, Users, Heart } from 'lucide-react';
 
 const About = () => {
@@ -12,10 +11,10 @@ const About = () => {
             </h2>
             <div className="prose prose-lg text-gray-600">
               <p className="mb-4">
-                Founded in 2020 by Priya, Alpis India emerged from a vision to bridge the gap between exceptional tech talent and innovative companies. With over 5 years of experience in the tech industry, Priya recognized the challenges companies face in finding the right technical talent.
+                Alpis India was founded in 2020 by Priya, Alpis India was created with a clear vision to bridge the gap between exceptional tech talent and forward-thinking companies. Understanding the challenges businesses face in sourcing the right technical expertise, we aim to simplify the recruitment process and deliver the best-fit solutions.
               </p>
               <p className="mb-6">
-                Our mission is to revolutionize tech recruitment by combining human expertise with data-driven insights, ensuring perfect matches between companies and talent.
+                Our mission is to transform tech recruitment by combining human insight with data-driven strategies. This approach ensures an ideal match between companies and top-tier talent, fostering long-term success for both parties. At Alpis India, we are committed to delivering exceptional value by connecting the right talent with the right opportunities.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
                 <div className="text-center">

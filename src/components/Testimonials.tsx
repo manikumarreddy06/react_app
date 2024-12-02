@@ -3,18 +3,15 @@ import { Star } from 'lucide-react';
 const Testimonials = () => {
   const testimonials = [
     {
-      name: "Sarah Chen",
-      role: "CTO, TechVision Inc",
+      name: "Viyan Joshi",
       content: "Alpis India helped us find exceptional engineering talent that transformed our development capabilities. Their screening process is thorough and spot-on.",
     },
     {
-      name: "Michael Rodriguez",
-      role: "Engineering Manager, CloudScale",
+      name: "Saanvi Mehta",
       content: "The quality of candidates and the speed of hiring through Alpis India exceeded our expectations. They truly understand tech talent.",
     },
     {
-      name: "Priya Sharma",
-      role: "Head of Engineering, DataFlow Systems",
+      name: "Rhea Patel",
       content: "Working with Alpis India streamlined our hiring process significantly. They found us developers who not only had the skills but also fit our culture perfectly.",
     },
   ];
@@ -37,7 +34,6 @@ const Testimonials = () => {
             >
               <div className="flex flex-col items-center mb-4">
                 <div className="text-xl font-semibold text-center mb-2">{testimonial.name}</div>
-                <div className="text-sm text-gray-500 text-center">{testimonial.role}</div>
               </div>
 
               <p className="text-gray-700 text-center italic mb-6">{testimonial.content}</p>
